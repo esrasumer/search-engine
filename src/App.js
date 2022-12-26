@@ -1,7 +1,8 @@
 import './App.css';
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-// import Input from './Input'
+import Item from './components/Item';
+// import Input from './Input';
 
 function App() {
   const [data, setData] = useState([]);
@@ -16,37 +17,24 @@ function App() {
 
   const [search, setSearch] = useState("")
   const handleChange = (e) => {
-    setSearch(e.target.value)
+      setSearch(e.target.value)
   }
-  // console.log(search)
+
+  let filteredData = search ? data.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())) : data
 
   return (
     <div className="App">
-      {/* <ul>
-        {data.map(repo =>
-          <div key={repo.id}>
-            <div> name : {repo.name}</div>
-            <div>  username : {repo.username}</div>
-          </div>
-        )}
-      </ul> */}
+     {/* <Input search={search} /> */}
+     <input type="text" value={search} onChange={handleChange} placeholder="filter with name.." />
       <div>
-        <input type="text" value={search} onChange={handleChange} placeholder="Bir şeyler yaz.." />
-      </div>
-      <div>
-        {data
-          .filter((item) => {
-            return search.toLowerCase() === '' ? item : item.name.toLowerCase().includes(search)
-          })
-          .map((item) => (
-            <div key={item.id}>
-              <div> Name: {item.name}</div>
-              {/* <div>  Username: {item.username}</div>
-              <div> e-mail: {item.email}</div>
-              <div>Address: {item.address}</div> */}
-
-              {/* bu üçünü yazınca kod hata veriyor */}
-            </div>
+        {filteredData.map((item) => (
+            <Item  key={item.id}
+              id={item.id}
+              name={item.name}
+              username={item.username}
+              email={item.email}
+              address={item.address.city}
+            />
           ))
         }
       </div>
