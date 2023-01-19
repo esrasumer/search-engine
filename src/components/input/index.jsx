@@ -5,6 +5,7 @@ import Item from '../Item';
 export default function Input() {
 
     const [data, setData] = useState([]);
+    const [search, setSearch] = useState("")
 
     useEffect(() => {
         const fetchData = async () => {
@@ -14,7 +15,7 @@ export default function Input() {
         fetchData();
     }, [])
 
-    const [search, setSearch] = useState("")
+
     const handleChange = (e) => {
         setSearch(e.target.value)
     }
@@ -23,10 +24,10 @@ export default function Input() {
     return (
         <div>
             <input type="text" value={search} onChange={handleChange} placeholder="filter with name.." />
-           
-            {filteredData.map((item) => (
+            <button>Seacrh</button>
+            {search && filteredData.map((item) => (
                 <Item
-                 key={item.id}
+                    key={item.id}
                     id={item.id}
                     name={item.name}
                     username={item.username}
