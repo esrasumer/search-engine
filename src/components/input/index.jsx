@@ -15,7 +15,6 @@ export default function Input() {
         fetchData();
     }, [])
 
-
     const handleChange = (e) => {
         setSearch(e.target.value)
     }
